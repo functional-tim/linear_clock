@@ -1,6 +1,6 @@
 [package]
 name = "linear_clock"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["functional-tim <tim.gravert@web.de>"]
 edition = "2024"
 description = "A program to show a linear clock with date."
