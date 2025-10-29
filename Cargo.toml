@@ -8,7 +8,7 @@ readme = "README.md"
 homepage = "https://github.com/functional-tim/linear_clock"
 repository = "https://github.com/functional-tim/linear_clock"
 license = "MIT OR Apache-2.0"
-keywords = ["linear clock", "clock", "print", "display"]
+keywords = ["linear-clock", "clock", "print", "display"]
 categories = ["command-line-utilities", "command-line-interface"]
 
 [dependencies]
