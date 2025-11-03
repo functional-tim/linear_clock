@@ -64,7 +64,7 @@ impl fmt::Display for LinearClock {
 fn main() {
     let mut time = chrono::Local::now();
 
-    loop {
+    //loop {
         let clock = LinearClock {
             year: time.year(),
             month: time.month(),
@@ -75,9 +75,9 @@ fn main() {
             second: time.second(),
         };
 
-        print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
+        //print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
         print!("{}", clock);
-        sleep(Duration::from_millis(20));
+        //sleep(Duration::from_millis(1000));
         time = chrono::Local::now();
-    }
+    //}
 }
