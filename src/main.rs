@@ -82,7 +82,7 @@ impl fmt::Display for LinearClock {
 
 fn print_linear_clock(time: chrono::DateTime<chrono::Local>, date: bool) {
     let clock = LinearClock {
-        date: date,
+        date,
         year: time.year(),
         month: time.month(),
         day: time.day(),
