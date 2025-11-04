@@ -1,7 +1,23 @@
 use chrono::{Datelike, Timelike};
 use std::{fmt, thread::sleep, time::Duration};
+use structopt::StructOpt;
+
+#[derive(Debug, StructOpt)]
+#[structopt(
+    name = "linear_clock",
+    about = "A program to show a linear clock with date.
+Sources and licenses are found here: https://github.com/functional-tim/linear_clock"
+)]
+struct Opt {
+    #[structopt(short = "c", long = "continous", help = "Runs the program continously")]
+    continous: bool,
+
+    #[structopt(short = "d", long = "date", help = "Prints also the date")]
+    date: bool,
+}
 
 struct LinearClock {
+    date: bool,
     year: i32,
     month: u32,
     day: u32,
@@ -13,11 +29,14 @@ struct LinearClock {
 
 impl fmt::Display for LinearClock {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        writeln!(f, "Year:    {}", self.year)?;
-        writeln!(f, "Month:   {}", self.month)?;
-        writeln!(f, "Day:     {}", self.day)?;
-        writeln!(f, "Weekday: {}", self.weekday)?;
-        writeln!(f)?;
+        if self.date {
+            writeln!(f, "Year:    {}", self.year)?;
+            writeln!(f, "Month:   {}", self.month)?;
+            writeln!(f, "Day:     {}", self.day)?;
+            writeln!(f, "Weekday: {}", self.weekday)?;
+            writeln!(f)?;
+        }
+
         for i in 0..24 {
             if i == 23 && i == self.hour {
                 write!(f, "|")?;
@@ -61,23 +80,32 @@ impl fmt::Display for LinearClock {
     }
 }
 
+fn print_linear_clock(time: chrono::DateTime<chrono::Local>, date: bool) {
+    let clock = LinearClock {
+        date: date,
+        year: time.year(),
+        month: time.month(),
+        day: time.day(),
+        weekday: time.weekday(),
+        hour: time.hour(),
+        minute: time.minute(),
+        second: time.second(),
+    };
+    print!("{}", clock);
+}
+
 fn main() {
+    let opt = Opt::from_args();
     let mut time = chrono::Local::now();
 
-    //loop {
-        let clock = LinearClock {
-            year: time.year(),
-            month: time.month(),
-            day: time.day(),
-            weekday: time.weekday(),
-            hour: time.hour(),
-            minute: time.minute(),
-            second: time.second(),
-        };
-
-        //print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
-        print!("{}", clock);
-        //sleep(Duration::from_millis(1000));
-        time = chrono::Local::now();
-    //}
+    if opt.continous {
+        loop {
+            print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
+            print_linear_clock(time, opt.date);
+            sleep(Duration::from_millis(1000));
+            time = chrono::Local::now();
+        }
+    } else {
+        print_linear_clock(time, opt.date);
+    }
 }

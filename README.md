@@ -6,6 +6,25 @@
 
 -----------------------------------------------
 
+## Usage
+
+You can either let it run continously in the console or let it run once to get a string. The later can be used for example in conky. With the Option `-d` you can also get the date of the day.
+
+```
+linear_clock 0.1.1
+A program to show a linear clock with date.
+Sources and licenses are found here: https://github.com/functional-tim/linear_clock
+
+USAGE:
+    linear_clock [FLAGS]
+
+FLAGS:
+    -c, --continous    Runs the program continously
+    -d, --date         Prints also the date
+    -h, --help         Prints help information
+    -V, --version      Prints version information
+```
+
 ## How to install
 
 ### Using cargo
