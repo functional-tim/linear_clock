@@ -1,4 +1,4 @@
-# rusty-turing-machine
+# linear_clock
 
 [![Crates.io](https://img.shields.io/crates/v/linear_clock.svg)](https://crates.io/crates/linear_clock)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/functional-tim/rusty-turing-machine/blob/main/LICENSE-MIT)
