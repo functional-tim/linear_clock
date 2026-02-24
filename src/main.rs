@@ -1,4 +1,5 @@
 use chrono::{Datelike, Timelike};
+use colored::Colorize;
 use std::{fmt, thread::sleep, time::Duration};
 use structopt::StructOpt;
 
@@ -37,44 +38,66 @@ impl fmt::Display for LinearClock {
             writeln!(f)?;
         }
 
-        for i in 0..24 {
-            if i == 23 && i == self.hour {
-                write!(f, "|")?;
-            } else if i == 23 {
-                write!(f, "–")?;
-            } else if i == self.hour {
-                write!(f, "|––")?;
-            } else {
-                write!(f, "–––")?;
-            }
-        }
+//        for i in 0..24 {
+//            if i == 23 && i == self.hour {
+//                write!(f, "{}", "|".truecolor(214, 93, 14))?;
+//            } else if i == 23 {
+//                write!(f, "–")?;
+//            } else if i == self.hour {
+//                write!(f, "{}––", "|".truecolor(214, 93, 14))?;
+//            } else {
+//                write!(f, "–––")?;
+//            }
+//        }
         writeln!(
             f,
-            "\n00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23"
+            "{}{}",
+            (0..self.hour).map(|_| "███").collect::<String>().truecolor(213, 93, 14),
+            (0..(24-self.hour)).map(|_| "   ").collect::<String>().on_truecolor(235, 219, 178),
         )?;
-        for i in 0..60 {
-            if i == self.minute {
-                write!(f, "|")?;
-            } else {
-                write!(f, "–")?;
-            }
-        }
         writeln!(
             f,
-            "\n00{spacer}15{spacer}30{spacer}45{spacer}60",
-            spacer = (0..13).map(|_| " ").collect::<String>()
+            "00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24"
         )?;
-        for i in 0..60 {
-            if i == self.second {
-                write!(f, "|")?;
-            } else {
-                write!(f, "–")?;
-            }
-        }
+//        for i in 0..60 {
+//            if i == self.minute {
+//                write!(f, "{}", "|".truecolor(214, 93, 14))?;
+//            } else if i % 5 == 0 && i != 0 {
+//                write!(f, "{}", "–".truecolor(214, 93, 14))?;
+//            } else {
+//                write!(f, "–")?;
+//            }
+//        }
         writeln!(
             f,
-            "\n00{spacer}15{spacer}30{spacer}45{spacer}60",
-            spacer = (0..13).map(|_| " ").collect::<String>()
+            "{}{}",
+            (0..self.minute).map(|_| "█").collect::<String>().truecolor(213, 93, 14),
+            (0..(60-self.minute)).map(|_| "█").collect::<String>().truecolor(235, 219, 178),
+        )?;
+        writeln!(
+            f,
+            "00{spacer}05{spacer}10{spacer}15{spacer}20{spacer}25{spacer}30{spacer}35{spacer}40{spacer}45{spacer}50{spacer}55{spacer}60",
+            spacer = (0..3).map(|_| " ").collect::<String>()
+        )?;
+//        for i in 0..60 {
+//            if i == self.second {
+//                write!(f, "{}", "|".truecolor(214, 93, 14))?;
+//            } else if i % 5 == 0 && i != 0 {
+//                write!(f, "{}", "–".truecolor(214, 93, 14))?;
+//            } else {
+//                write!(f, "–")?;
+//            }
+//        }
+        writeln!(
+            f,
+            "{}{}",
+            (0..self.second).map(|_| "█").collect::<String>().truecolor(213, 93, 14),
+            (0..(60-self.second)).map(|_| "█").collect::<String>().truecolor(235, 219, 178),
+        )?;
+        writeln!(
+            f,
+            "00{spacer}05{spacer}10{spacer}15{spacer}20{spacer}25{spacer}30{spacer}35{spacer}40{spacer}45{spacer}50{spacer}55{spacer}60",
+            spacer = (0..3).map(|_| " ").collect::<String>()
         )?;
         writeln!(f)
     }
